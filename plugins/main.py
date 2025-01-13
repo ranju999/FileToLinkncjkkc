@@ -41,10 +41,8 @@ async def photo_audio_erorr(client, message):
 
 @Client.on_message(filters.channel & ~filters.group & (filters.document | filters.video)  & ~filters.forwarded, group=-1)
 async def nel_receive_handler(bot, broadcast):
-    file_id = broadcast.document or broadcast.video
     try:
-        msg = await broadcast.forward(chat_id=BIN_CHANNEL,
-                                      caption=f"**File Name:** {file_id.file_name}\n\n**Requested By:** {broadcast.from_user.mention}")
+        msg = await broadcast.forward(chat_id=BIN_CHANNEL)
       
         online = f"{URL}watch/{msg.id}?hash={get_hash(msg)}"
         download = f"{URL}download/{msg.id}?hash={get_hash(msg)}"
@@ -54,8 +52,8 @@ async def nel_receive_handler(bot, broadcast):
             message_id=broadcast.id,
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [InlineKeyboardButton("sᴛʀᴇᴀᴍ 🔺", url=online),
-                    InlineKeyboardButton('ᴅᴏᴡɴʟᴏᴀᴅ 🔻', url=download)] 
+                    [InlineKeyboardButton("sᴛʀᴇᴀᴍ", url=online),
+                    InlineKeyboardButton('ᴅᴏᴡɴʟᴏᴀᴅ', url=download)] 
                 ]
             )
         )
