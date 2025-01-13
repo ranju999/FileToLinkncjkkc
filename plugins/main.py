@@ -40,7 +40,7 @@ async def photo_audio_erorr(client, message):
 
 @Client.on_message(filters.channel & ~filters.group & (filters.document | filters.video)  & ~filters.forwarded, group=-1)
 async def nel_receive_handler(bot, broadcast):
-    file_id = message.document or message.video
+    file_id = broadcast.document or broadcast.video
     try:
         msg = await broadcast.forward(chat_id=BIN_CHANNEL,
                                       caption=f"**File Name:** {file_id.file_name}\n\n**Requested By:** {message.from_user.mention}")
