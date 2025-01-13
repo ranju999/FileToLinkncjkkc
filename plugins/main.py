@@ -1,6 +1,6 @@
 from pyrogram import Client, filters
 from info import URL, BIN_CHANNEL
-from utils import get_hash
+from web.av import get_hash
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
