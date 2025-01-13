@@ -5,11 +5,6 @@ from web.av import get_hash
 from pyrogram.types import *
 from pyrogram.errors import *
 
-@Client.on_message(filters.command("start") & filters.private)
-async def start(client, message):
-    await message.reply_text(f"**Hello {message.from_user.mention},\nI am a Telegram Video Stream Bot. Send me any video and I will give you streaming & download link.**")
-
-
 @Client.on_message((filters.private) & (filters.document | filters.video) , group=4)
 async def private_receive_handler(client, message):
     file_id = message.document or message.video
@@ -43,10 +38,12 @@ async def photo_audio_erorr(client, message):
 async def nel_receive_handler(bot, broadcast):
     try:
         msg = await broadcast.forward(chat_id=BIN_CHANNEL)
-      
         online = f"{URL}watch/{msg.id}?hash={get_hash(msg)}"
         download = f"{URL}download/{msg.id}?hash={get_hash(msg)}"
-        
+        await msg.reply_text(
+            text=f"**Channel Name:** `{broadcast.chat.title}`\n**CHANNEL ID:** `{broadcast.chat.id}`\n**Rᴇǫᴜᴇsᴛ ᴜʀʟ:** {online}",
+            quote=True
+        )
         await bot.edit_message_reply_markup(
             chat_id=broadcast.chat.id,
             message_id=broadcast.id,
