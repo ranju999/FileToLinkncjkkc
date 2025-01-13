@@ -3,6 +3,7 @@ from pyrogram import Client, filters
 from info import URL, BIN_CHANNEL
 from web.av import get_hash
 from pyrogram.types import *
+from pyrogram.errors import *
 
 @Client.on_message(filters.command("start") & filters.private)
 async def start(client, message):
@@ -43,7 +44,7 @@ async def nel_receive_handler(bot, broadcast):
     file_id = broadcast.document or broadcast.video
     try:
         msg = await broadcast.forward(chat_id=BIN_CHANNEL,
-                                      caption=f"**File Name:** {file_id.file_name}\n\n**Requested By:** {message.from_user.mention}")
+                                      caption=f"**File Name:** {file_id.file_name}\n\n**Requested By:** {broadcast.from_user.mention}")
       
         online = f"{URL}watch/{msg.id}?hash={get_hash(msg)}"
         download = f"{URL}download/{msg.id}?hash={get_hash(msg)}"
