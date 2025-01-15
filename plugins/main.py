@@ -16,7 +16,7 @@ async def private_receive_handler(client, message):
     file_name = file_id.file_name.replace("_", " ").replace(".mp4", "").replace(".mkv", "").replace(".", " ")
     online = f"{URL}watch/{msg.id}?hash={get_hash(msg)}"
     download = f"{URL}download/{msg.id}?hash={get_hash(msg)}"
-
+    await message.delete()
     await message.reply_text(
         text=f"<b>Here Is Your Streamable Link\n\nFile Name</b>: - <a href=https://t.me/av_botz>{file_name}</a></b>",
         reply_markup=InlineKeyboardMarkup(
